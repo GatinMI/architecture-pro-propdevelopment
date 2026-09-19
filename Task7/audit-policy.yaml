@@ -1,0 +1,28 @@
+# Pod Security AUDIT policy.
+#
+# Applies the non-blocking "audit" and "warn" layers of Pod Security Admission
+# to the audit-zone namespace, complementing the ENFORCE layer defined in
+# 01-create-namespace.yaml.
+#
+#   - audit: non-compliant pods are STILL ADMITTED, but every violation is
+#            written to the API-server audit log (the "audit" half of the task).
+#   - warn:  the API server returns a Warning header for violations, helping
+#            developers discover problems without blocking deployment.
+#
+# The full label set (enforce + audit + warn) is repeated here so that applying
+# this file in any order produces the same final namespace state (kubectl apply
+# removes map keys that are absent from the new object).
+#
+# Together the namespace runs the "restricted" policy in all three modes
+# (enforce + audit + warn).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: audit-zone
+  labels:
+    pod-security.kubernetes.io/enforce: "restricted"
+    pod-security.kubernetes.io/enforce-version: "latest"
+    pod-security.kubernetes.io/audit: "restricted"
+    pod-security.kubernetes.io/audit-version: "latest"
+    pod-security.kubernetes.io/warn: "restricted"
+    pod-security.kubernetes.io/warn-version: "latest"

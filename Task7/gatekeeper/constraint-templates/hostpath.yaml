@@ -1,0 +1,32 @@
+# ConstraintTemplate: HostPathVolume
+#
+# Rule: workloads may not mount hostPath volumes.
+#
+# hostPath mounts let a container read/write arbitrary files and directories on
+# the node (e.g. /etc, /var/lib, /boot), which breaks node isolation.
+#
+# Used by the Constraint `forbid-host-path` (gatekeeper/constraints/).
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: hostpathvolume
+  annotations:
+    metadata.gatekeeper.sh/title: "No hostPath volumes"
+    description: >-
+      Forbids any workload from using a hostPath volume.
+spec:
+  crd:
+    spec:
+      names:
+        kind: HostPathVolume
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sdisallowedhostpath
+
+        violation[{"msg": msg, "details": {"volume": v}}] {
+          v := input.review.object.spec.volumes[_]
+          v.hostPath != null
+          msg := sprintf("hostPath volume is not allowed: %v (%v)",
+            [v.name, v.hostPath.path])
+        }

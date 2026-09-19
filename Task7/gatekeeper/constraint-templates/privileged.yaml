@@ -1,0 +1,47 @@
+# ConstraintTemplate: PrivilegedContainer
+#
+# Rule: no container in a workload may set `securityContext.privileged: true`.
+#
+# Privileged mode gives the container every Linux capability and access to all
+# host devices — a complete container-escape escalation path.
+#
+# Used by the Constraint `privileged-container` (gatekeeper/constraints/).
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: privilegedcontainer
+  annotations:
+    metadata.gatekeeper.sh/title: "No privileged containers"
+    description: >-
+      Forbids any container from running in privileged mode
+      (securityContext.privileged must not be set to true).
+spec:
+  crd:
+    spec:
+      names:
+        kind: PrivilegedContainer
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sprivcontainers
+
+        violation[{"msg": msg}] {
+          c := input_containers[_]
+          c.securityContext.privileged == true
+          msg := sprintf("Privileged container is not allowed: %v. Container: %v, container image: %v.",
+            [c.securityContext, c.name, c.image])
+        }
+
+        # Union of pod-level and container-level security contexts is not used
+        # here on purpose: `privileged` is only a container-level field, and
+        # being explicit about where it is set keeps the violation message
+        # precise.
+        input_containers[c] {
+          c := input.review.object.spec.containers[_]
+        }
+        input_containers[c] {
+          c := input.review.object.spec.initContainers[_]
+        }
+        input_containers[c] {
+          c := input.review.object.spec.ephemeralContainers[_]
+        }

@@ -1,0 +1,67 @@
+# SECURE FIX #2 (replaces insecure-manifests/02-hostpath-pod.yaml).
+#
+# Fix: the `hostPath` volume is GONE. Instead of exposing the node's /etc, the
+# pod uses an `emptyDir` volume for its own private, per-pod scratch space. The
+# pod also carries the full "restricted" hardening (non-root, no privilege
+# escalation, dropped capabilities, read-only root fs, RuntimeDefault seccomp).
+#
+# Admitted in audit-zone and runs cleanly.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx-norootfs-secure
+  namespace: audit-zone
+  labels:
+    app: nginx
+    security: hardened
+spec:
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 101
+    runAsGroup: 101
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: nginx
+      image: nginxinc/nginx-unprivileged:stable-alpine
+      ports:
+        - containerPort: 8080
+          name: http
+      securityContext:
+        allowPrivilegeEscalation: false
+        privileged: false
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+        seccompProfile:
+          type: RuntimeDefault
+      # The insecure manifest mounted the host's /etc here. We never need a
+      # host path; an ephemeral emptyDir is sufficient and keeps the node
+      # isolated.
+      volumeMounts:
+        - name: cache
+          mountPath: /var/cache/nginx
+        - name: run
+          mountPath: /var/run
+        - name: tmp
+          mountPath: /tmp
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+  volumes:
+    - name: cache
+      emptyDir: {}
+    - name: run
+      emptyDir: {}
+    - name: tmp
+      emptyDir: {}

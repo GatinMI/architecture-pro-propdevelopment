@@ -1,0 +1,16 @@
+# Constraint: HostPathVolume
+#
+# Applies the `HostPathVolume` ConstraintTemplate cluster-wide to every Pod.
+# `enforcementAction: deny` blocks admission.
+#
+# Policy requirement: "hostPath запрещён."
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: HostPathVolume
+metadata:
+  name: forbid-host-path
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  enforcementAction: deny

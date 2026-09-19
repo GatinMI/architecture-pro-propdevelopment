@@ -1,0 +1,26 @@
+# VIOLATION #3: running as root (UID 0).
+#
+# This pod explicitly forces the process to run as UID 0 (root) by setting
+# `runAsUser: 0` (which implies runAsNonRoot: false). The "restricted" Pod
+# Security profile requires runAsNonRoot: true, so this pod MUST be REJECTED by
+# admission in audit-zone.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-root-user
+  namespace: audit-zone
+spec:
+  restartPolicy: Never
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      securityContext:
+        runAsUser: 0
+        runAsNonRoot: false
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
