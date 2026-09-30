@@ -1,0 +1,26 @@
+# VIOLATION #1: privileged container.
+#
+# This pod runs nginx with `securityContext.privileged: true`, which grants the
+# container every Linux capability and full access to all host devices. It
+# violates the "restricted" Pod Security profile (and the Gatekeeper
+# PrivilegedContainer constraint), so it MUST be REJECTED by admission in
+# audit-zone.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-privileged
+  namespace: audit-zone
+spec:
+  restartPolicy: Never
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      securityContext:
+        privileged: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi

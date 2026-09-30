@@ -1,0 +1,72 @@
+# SECURE FIX #1 (replaces insecure-manifests/01-privileged-pod.yaml).
+#
+# Fix: the `privileged: true` flag is GONE. The container runs as a non-root
+# user (nginx-unprivileged image, uid 101) with a fully hardened security
+# context:
+#   - runAsNonRoot / runAsUser / runAsGroup  -> non-root user
+#   - allowPrivilegeEscalation: false
+#   - capabilities: drop ALL
+#   - readOnlyRootFilesystem: true  (writable paths served via emptyDir)
+#   - seccompProfile: RuntimeDefault
+#   - automountServiceAccountToken: false
+#
+# This pod satisfies the "restricted" Pod Security profile AND every Gatekeeper
+# constraint, so it is ADMITTED in audit-zone and runs cleanly.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx-secure
+  namespace: audit-zone
+  labels:
+    app: nginx
+    security: hardened
+spec:
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 101
+    runAsGroup: 101
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: nginx
+      image: nginxinc/nginx-unprivileged:stable-alpine
+      ports:
+        - containerPort: 8080
+          name: http
+      securityContext:
+        allowPrivilegeEscalation: false
+        privileged: false
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+        seccompProfile:
+          type: RuntimeDefault
+      # nginx needs writable scratch space; with a read-only root fs we give
+      # it dedicated emptyDir volumes (NOT hostPath).
+      volumeMounts:
+        - name: cache
+          mountPath: /var/cache/nginx
+        - name: run
+          mountPath: /var/run
+        - name: tmp
+          mountPath: /tmp
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+  volumes:
+    - name: cache
+      emptyDir: {}
+    - name: run
+      emptyDir: {}
+    - name: tmp
+      emptyDir: {}

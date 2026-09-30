@@ -1,0 +1,101 @@
+# ConstraintTemplate: RunAsNonRoot
+#
+# Enforces two container-securityContext requirements (task rules 2 and 3):
+#
+#   1. "Только runAsNonRoot: true" — every container (and init/ephemeral
+#      containers) MUST run as a non-root user. The effective value comes from
+#      the container's own securityContext, falling back to the pod-level
+#      securityContext (Kubernetes inheritance). If neither sets it, the check
+#      fails — a policy must be explicit.
+#
+#   2. "readOnlyRootFilesystem: true обязательно" — every container MUST set
+#      readOnlyRootFilesystem: true (again resolved with pod-level inheritance
+#      fallback). Note: this is NOT part of the built-in "restricted" Pod
+#      Security profile, so it is enforced here via Gatekeeper.
+#
+# Used by the Constraint `require-non-root` (gatekeeper/constraints/).
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: runasnonroot
+  annotations:
+    metadata.gatekeeper.sh/title: "Run as non-root + read-only root filesystem"
+    description: >-
+      Requires every container to run as non-root (runAsNonRoot=true) and to
+      use a read-only root filesystem (readOnlyRootFilesystem=true), either at
+      container level or inherited from the pod securityContext.
+spec:
+  crd:
+    spec:
+      names:
+        kind: RunAsNonRoot
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srunasnonroot
+
+        # --- rule 1: effective runAsNonRoot must be true -------------------
+        is_non_root(c) {
+          c.securityContext.runAsNonRoot == true
+        }
+        is_non_root(c) {
+          not c.securityContext
+          input.review.object.spec.securityContext.runAsNonRoot == true
+        }
+        is_non_root(c) {
+          c.securityContext != null
+          not c.securityContext.runAsNonRoot
+          input.review.object.spec.securityContext.runAsNonRoot == true
+        }
+
+        # --- rule 2: effective readOnlyRootFilesystem must be true ---------
+        has_rofs(c) {
+          c.securityContext.readOnlyRootFilesystem == true
+        }
+        has_rofs(c) {
+          not c.securityContext
+          input.review.object.spec.securityContext.readOnlyRootFilesystem == true
+        }
+        has_rofs(c) {
+          c.securityContext != null
+          not c.securityContext.readOnlyRootFilesystem
+          input.review.object.spec.securityContext.readOnlyRootFilesystem == true
+        }
+
+        # --- violations -----------------------------------------------------
+        violation[{"msg": msg, "details": {"container": c.name}}] {
+          c := input.review.object.spec.containers[_]
+          not is_non_root(c)
+          msg := sprintf("Container %v must run as non-root: set securityContext.runAsNonRoot=true (container level or pod level)",
+            [c.name])
+        }
+        violation[{"msg": msg, "details": {"container": c.name}}] {
+          c := input.review.object.spec.containers[_]
+          not has_rofs(c)
+          msg := sprintf("Container %v must set securityContext.readOnlyRootFilesystem=true (container level or pod level)",
+            [c.name])
+        }
+        violation[{"msg": msg, "details": {"container": c.name}}] {
+          c := input.review.object.spec.initContainers[_]
+          not is_non_root(c)
+          msg := sprintf("Init container %v must run as non-root: set securityContext.runAsNonRoot=true (container level or pod level)",
+            [c.name])
+        }
+        violation[{"msg": msg, "details": {"container": c.name}}] {
+          c := input.review.object.spec.initContainers[_]
+          not has_rofs(c)
+          msg := sprintf("Init container %v must set securityContext.readOnlyRootFilesystem=true (container level or pod level)",
+            [c.name])
+        }
+        violation[{"msg": msg, "details": {"container": c.name}}] {
+          c := input.review.object.spec.ephemeralContainers[_]
+          not is_non_root(c)
+          msg := sprintf("Ephemeral container %v must run as non-root: set securityContext.runAsNonRoot=true (container level or pod level)",
+            [c.name])
+        }
+        violation[{"msg": msg, "details": {"container": c.name}}] {
+          c := input.review.object.spec.ephemeralContainers[_]
+          not has_rofs(c)
+          msg := sprintf("Ephemeral container %v must set securityContext.readOnlyRootFilesystem=true (container level or pod level)",
+            [c.name])
+        }

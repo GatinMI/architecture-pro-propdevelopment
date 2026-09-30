@@ -1,0 +1,85 @@
+# Политика аудита — задание 6.
+#
+# Правило 1 по структуре 1:1 из task6.md (RequestResponse на
+# create/delete/update/patch/get/list по pods/secrets/configmaps/
+# serviceaccounts/roles/rolebindings). Четыре обязательных уточнения:
+#
+#  1) Правило 2 в исходнике задания: group: "*" (Metadata на всё).
+#     Аписервер ОТКАЗЫВАЕТСЯ ЕЁ ЗАГРУЖАТЬ — поле group валидируется как
+#     RFC 1123 subdomain (проверено на K8s 1.22.3 и 1.35.1, код
+#     validation.go: NameIsDNSSubdomain для ненулевой группы):
+#       Error: loading audit policy file: rules[1].resources.group:
+#       Invalid value: "*": a lowercase RFC 1123 subdomain ...
+#     Поэтому группы перечислены явно (семантика «Metadata на всё»
+#     сохранена для всех штатных API-групп).
+#     Даже если бы "*" принял, он бы ничего не матчил: матчер делает
+#     точное сравнение gr.Group == apiGroup (checker.go, 1.22).
+#
+#  2) В правиле 1 задания roles/rolebindings объявлены в группе "" (core),
+#     но на самом деле живут в группе rbac.authorization.k8s.io. Оставь
+#     их в "" — они не попадут под RequestResponse, а подхватятся только
+#     правилом 2 (Metadata) БЕЗ тела запроса: невозможно доказать по логу,
+#     что RoleBinding даёт именно cluster-admin. Поэтому RBAC-ресурсы
+#     объявлены в правильной группе.
+#
+#  3) kubectl exec — это создание subresource pods/exec (verb=create,
+#     subresource=exec). Матчер по полному имени "pods/exec" требует явного
+#     правила; одного "pods" не хватает. Добавлены pods/exec и pods/attach,
+#     иначе тело exec-запроса (какая команда запускалась в чужом поде)
+#     в лог не попадёт.
+#
+#  4) Добавлены verbs для RBAC-группы (create/delete/update/patch/get/list
+#     — те же, что в правиле 1 задания).
+#
+# Подключение «снаружи»: файл на хосте (Task6/audit/), копируется в
+# docker-объём minikube (в ВМ это /var), передаётся статическому
+# аписерверу через hostPath-маунт /var/audit:
+#   minikube start --extra-config=apiserver.audit-policy-file=/var/audit/audit-policy.yaml
+#                  --extra-config=apiserver.audit-log-path=/var/log/audit.log
+#                  --extra-config=apiserver.audit-log-maxsize=100
+apiVersion: audit.k8s.io/v1
+kind: Policy
+rules:
+   - level: RequestResponse
+     verbs: ["create", "delete", "update", "patch", "get", "list"]
+     resources:
+        - group: ""
+          resources: ["pods", "pods/exec", "pods/attach", "secrets", "configmaps", "serviceaccounts", "roles", "rolebindings"]
+        - group: "rbac.authorization.k8s.io"
+          resources: ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+   - level: Metadata
+     resources:
+        - group: ""
+          resources: ["*"]
+        - group: "rbac.authorization.k8s.io"
+          resources: ["*"]
+        - group: "apps"
+          resources: ["*"]
+        - group: "batch"
+          resources: ["*"]
+        - group: "networking.k8s.io"
+          resources: ["*"]
+        - group: "autoscaling"
+          resources: ["*"]
+        - group: "storage.k8s.io"
+          resources: ["*"]
+        - group: "certificates.k8s.io"
+          resources: ["*"]
+        - group: "coordination.k8s.io"
+          resources: ["*"]
+        - group: "scheduling.k8s.io"
+          resources: ["*"]
+        - group: "discovery.k8s.io"
+          resources: ["*"]
+        - group: "events.k8s.io"
+          resources: ["*"]
+        - group: "node.k8s.io"
+          resources: ["*"]
+        - group: "policy"
+          resources: ["*"]
+        - group: "audit.k8s.io"
+          resources: ["*"]
+        - group: "authentication.k8s.io"
+          resources: ["*"]
+        - group: "authorization.k8s.io"
+          resources: ["*"]

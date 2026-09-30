@@ -1,0 +1,66 @@
+# SECURE FIX #3 (replaces insecure-manifests/03-root-user-pod.yaml).
+#
+# Fix: the pod no longer forces UID 0. The insecure manifest used
+# `runAsUser: 0` / `runAsNonRoot: false`; here we set `runAsNonRoot: true` and a
+# concrete non-root user (101). Combined with the remaining "restricted"
+# hardening, the pod is admitted in audit-zone and runs as non-root.
+#
+# Admitted in audit-zone and runs cleanly.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx-nonroot-secure
+  namespace: audit-zone
+  labels:
+    app: nginx
+    security: hardened
+spec:
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  securityContext:
+    # The insecure variant set runAsUser: 0 + runAsNonRoot: false. Here we
+    # require a non-root user.
+    runAsNonRoot: true
+    runAsUser: 101
+    runAsGroup: 101
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: nginx
+      image: nginxinc/nginx-unprivileged:stable-alpine
+      ports:
+        - containerPort: 8080
+          name: http
+      securityContext:
+        allowPrivilegeEscalation: false
+        privileged: false
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+        seccompProfile:
+          type: RuntimeDefault
+      volumeMounts:
+        - name: cache
+          mountPath: /var/cache/nginx
+        - name: run
+          mountPath: /var/run
+        - name: tmp
+          mountPath: /tmp
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+  volumes:
+    - name: cache
+      emptyDir: {}
+    - name: run
+      emptyDir: {}
+    - name: tmp
+      emptyDir: {}

@@ -1,0 +1,2153 @@
+[
+  {
+    "category": "impersonation",
+    "categories": [
+      "impersonation"
+    ],
+    "reason": {
+      "impersonation": "create selfsubjectaccessreviews от имени system:serviceaccount:secure-ops:monitoring (имперсонация) (разведка прав через can-i)"
+    },
+    "timestamp": "2026-09-29T23:25:49.905554Z",
+    "verb": "create",
+    "auditLevel": "Metadata",
+    "objectRef": {
+      "resource": "selfsubjectaccessreviews",
+      "apiGroup": "authorization.k8s.io",
+      "apiVersion": "v1"
+    },
+    "requestURI": "/apis/authorization.k8s.io/v1/selfsubjectaccessreviews",
+    "who": {
+      "initiatedBy": "minikube-user",
+      "initiatorGroups": [
+        "system:masters",
+        "system:authenticated"
+      ],
+      "impersonatedUser": "system:serviceaccount:secure-ops:monitoring",
+      "impersonatedGroups": [
+        "system:serviceaccounts",
+        "system:serviceaccounts:secure-ops",
+        "system:authenticated"
+      ],
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.22.9 (linux/amd64) kubernetes/6df4433"
+    },
+    "response": {
+      "code": 201,
+      "reason": null
+    },
+    "auditID": "7f04447d-e4cc-4384-ad07-a8b28b739558"
+  },
+  {
+    "category": "secrets_access",
+    "categories": [
+      "secrets_access"
+    ],
+    "reason": {
+      "secrets_access": "list secrets/<list> (ns=kube-system)"
+    },
+    "timestamp": "2026-09-29T23:25:49.936007Z",
+    "verb": "list",
+    "auditLevel": "RequestResponse",
+    "objectRef": {
+      "resource": "secrets",
+      "namespace": "kube-system",
+      "apiVersion": "v1"
+    },
+    "requestURI": "/api/v1/namespaces/kube-system/secrets?limit=500",
+    "who": {
+      "initiatedBy": "minikube-user",
+      "initiatorGroups": [
+        "system:masters",
+        "system:authenticated"
+      ],
+      "impersonatedUser": null,
+      "impersonatedGroups": null,
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.22.9 (linux/amd64) kubernetes/6df4433"
+    },
+    "response": {
+      "code": 200,
+      "reason": null
+    },
+    "auditID": "a8dcbca6-6685-42e9-94c3-c04302574e25",
+    "responseObject": {
+      "kind": "Table",
+      "apiVersion": "meta.k8s.io/v1",
+      "metadata": {
+        "resourceVersion": "589"
+      },
+      "columnDefinitions": [
+        {
+          "name": "Name",
+          "type": "string",
+          "format": "name",
+          "description": "Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names",
+          "priority": 0
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "format": "",
+          "description": "Used to facilitate programmatic handling of secret data.",
+          "priority": 0
+        },
+        {
+          "name": "Data",
+          "type": "string",
+          "format": "",
+          "description": "Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4",
+          "priority": 0
+        },
+        {
+          "name": "Age",
+          "type": "string",
+          "format": "",
+          "description": "CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.\n\nPopulated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+          "priority": 0
+        }
+      ],
+      "rows": [
+        {
+          "cells": [
+            "attachdetach-controller-token-5hvhw",
+            "kubernetes.io/service-account-token",
+            3,
+            "79s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "attachdetach-controller-token-5hvhw",
+              "namespace": "kube-system",
+              "uid": "07cd8c52-6b96-46c0-a1ec-c9008aa518bc",
+              "resourceVersion": "400",
+              "creationTimestamp": "2026-09-29T23:24:30Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "attachdetach-controller",
+                "kubernetes.io/service-account.uid": "8287e133-5f70-48ee-bb60-205e7e5c83bb"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:30Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "bootstrap-signer-token-4nvj7",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "bootstrap-signer-token-4nvj7",
+              "namespace": "kube-system",
+              "uid": "da762c12-a788-43ab-8d53-ee83b02f1ddc",
+              "resourceVersion": "381",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "bootstrap-signer",
+                "kubernetes.io/service-account.uid": "cee32018-47c9-42f5-8b87-f557cb5a9578"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "certificate-controller-token-nrks9",
+            "kubernetes.io/service-account-token",
+            3,
+            "78s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "certificate-controller-token-nrks9",
+              "namespace": "kube-system",
+              "uid": "738417fd-a9de-4b60-ab69-1a0fb1d6c3b5",
+              "resourceVersion": "419",
+              "creationTimestamp": "2026-09-29T23:24:31Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "certificate-controller",
+                "kubernetes.io/service-account.uid": "e71fd611-a6e8-4039-bb96-9a4da8f3e405"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:31Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "clusterrole-aggregation-controller-token-f8dkf",
+            "kubernetes.io/service-account-token",
+            3,
+            "67s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "clusterrole-aggregation-controller-token-f8dkf",
+              "namespace": "kube-system",
+              "uid": "094d1eff-6462-48cd-add6-126531eca764",
+              "resourceVersion": "459",
+              "creationTimestamp": "2026-09-29T23:24:42Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "clusterrole-aggregation-controller",
+                "kubernetes.io/service-account.uid": "12d51cf5-4702-4889-b11a-1537ce80898d"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:42Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "coredns-token-dd9x9",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "coredns-token-dd9x9",
+              "namespace": "kube-system",
+              "uid": "4329ece6-2e6d-4585-8a91-a64e65f0aece",
+              "resourceVersion": "374",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "coredns",
+                "kubernetes.io/service-account.uid": "17bcf22a-6141-42dd-8003-f129c3d32678"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "cronjob-controller-token-x7jq9",
+            "kubernetes.io/service-account-token",
+            3,
+            "67s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "cronjob-controller-token-x7jq9",
+              "namespace": "kube-system",
+              "uid": "fe9ab09a-f4cb-435e-947d-880c69229de7",
+              "resourceVersion": "465",
+              "creationTimestamp": "2026-09-29T23:24:42Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "cronjob-controller",
+                "kubernetes.io/service-account.uid": "7f6944b0-0a1c-4273-9681-81788a94124c"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:42Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "daemon-set-controller-token-phjcz",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "daemon-set-controller-token-phjcz",
+              "namespace": "kube-system",
+              "uid": "eafda15f-3431-48b0-835c-b7a9287d0189",
+              "resourceVersion": "370",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "daemon-set-controller",
+                "kubernetes.io/service-account.uid": "9287f63f-cfb8-477f-a7f2-87c1872f8867"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "default-token-25rhr",
+            "kubernetes.io/service-account-token",
+            3,
+            "67s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "default-token-25rhr",
+              "namespace": "kube-system",
+              "uid": "93ffd808-2a99-4088-a119-689ab0d61b8e",
+              "resourceVersion": "476",
+              "creationTimestamp": "2026-09-29T23:24:42Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "default",
+                "kubernetes.io/service-account.uid": "73b81949-128b-4097-aa7e-bf5004364f52"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:42Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "deployment-controller-token-m5dhn",
+            "kubernetes.io/service-account-token",
+            3,
+            "78s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "deployment-controller-token-m5dhn",
+              "namespace": "kube-system",
+              "uid": "dbab0b28-2d0a-4989-b2a8-631334143505",
+              "resourceVersion": "415",
+              "creationTimestamp": "2026-09-29T23:24:31Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "deployment-controller",
+                "kubernetes.io/service-account.uid": "703ddc5b-85cf-4b54-9531-2927a752ec03"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:31Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "disruption-controller-token-c9tjq",
+            "kubernetes.io/service-account-token",
+            3,
+            "79s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "disruption-controller-token-c9tjq",
+              "namespace": "kube-system",
+              "uid": "780a227d-5cdc-44c0-8c66-83f2f5388565",
+              "resourceVersion": "396",
+              "creationTimestamp": "2026-09-29T23:24:30Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "disruption-controller",
+                "kubernetes.io/service-account.uid": "2d3f27ec-9eaa-4dd8-a301-790600f9bf17"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:30Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "endpoint-controller-token-svvhv",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "endpoint-controller-token-svvhv",
+              "namespace": "kube-system",
+              "uid": "1f1d0002-eb06-4a01-ab61-81d591b20b4f",
+              "resourceVersion": "456",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "endpoint-controller",
+                "kubernetes.io/service-account.uid": "fda6ac72-3ef4-4316-a9bc-aa0b4debdd9c"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "endpointslice-controller-token-hh5k5",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "endpointslice-controller-token-hh5k5",
+              "namespace": "kube-system",
+              "uid": "3241ee9a-1d74-4be5-b430-35eb3a702005",
+              "resourceVersion": "441",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "endpointslice-controller",
+                "kubernetes.io/service-account.uid": "f93afee0-4d0f-492c-a414-24532c2afc92"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "endpointslicemirroring-controller-token-bjt68",
+            "kubernetes.io/service-account-token",
+            3,
+            "78s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "endpointslicemirroring-controller-token-bjt68",
+              "namespace": "kube-system",
+              "uid": "a77e4cec-47d4-4231-9302-2a573ed9a35a",
+              "resourceVersion": "428",
+              "creationTimestamp": "2026-09-29T23:24:31Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "endpointslicemirroring-controller",
+                "kubernetes.io/service-account.uid": "26d9cde8-f8f1-4f7b-ab99-cb9a54dbbe6b"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:31Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "ephemeral-volume-controller-token-8w526",
+            "kubernetes.io/service-account-token",
+            3,
+            "67s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "ephemeral-volume-controller-token-8w526",
+              "namespace": "kube-system",
+              "uid": "5dbe2d51-11e4-4440-96a1-3cae177eb89e",
+              "resourceVersion": "462",
+              "creationTimestamp": "2026-09-29T23:24:42Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "ephemeral-volume-controller",
+                "kubernetes.io/service-account.uid": "4df5b301-745a-4d5b-8c86-7ec56d764891"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:42Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "expand-controller-token-ks27w",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "expand-controller-token-ks27w",
+              "namespace": "kube-system",
+              "uid": "87bfd31f-4e7c-429f-882e-13e851e7d209",
+              "resourceVersion": "453",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "expand-controller",
+                "kubernetes.io/service-account.uid": "eb9d9fef-b706-4aa3-9e32-73e69759083a"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "generic-garbage-collector-token-cwwjt",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "generic-garbage-collector-token-cwwjt",
+              "namespace": "kube-system",
+              "uid": "83a7e6f3-b2fc-4051-8b1f-9df2d3392d56",
+              "resourceVersion": "391",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "generic-garbage-collector",
+                "kubernetes.io/service-account.uid": "687846c5-a194-43a2-a868-099adbec3d55"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "horizontal-pod-autoscaler-token-gkk4c",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "horizontal-pod-autoscaler-token-gkk4c",
+              "namespace": "kube-system",
+              "uid": "ac3a759c-dc2e-44be-b4b7-a1fd4a55207a",
+              "resourceVersion": "438",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "horizontal-pod-autoscaler",
+                "kubernetes.io/service-account.uid": "a1805e47-8247-425f-a642-3c0ec9bba5d4"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "job-controller-token-pvr5h",
+            "kubernetes.io/service-account-token",
+            3,
+            "79s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "job-controller-token-pvr5h",
+              "namespace": "kube-system",
+              "uid": "075cb40f-8e8f-49c7-8dda-918e2c89f09f",
+              "resourceVersion": "394",
+              "creationTimestamp": "2026-09-29T23:24:30Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "job-controller",
+                "kubernetes.io/service-account.uid": "0e002f69-e1ce-42ae-be09-b099cf49081e"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:30Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "kube-proxy-token-n5hk5",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "kube-proxy-token-n5hk5",
+              "namespace": "kube-system",
+              "uid": "2f984e77-1804-490c-b95a-9eb8cc7915a7",
+              "resourceVersion": "372",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "kube-proxy",
+                "kubernetes.io/service-account.uid": "c3a4f5e0-9410-4b64-aa87-847333c43af2"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "namespace-controller-token-gfrfm",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "namespace-controller-token-gfrfm",
+              "namespace": "kube-system",
+              "uid": "053f60df-a2b8-47d3-b040-9b8a3196098b",
+              "resourceVersion": "444",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "namespace-controller",
+                "kubernetes.io/service-account.uid": "641fd7f1-70da-4469-9ce5-e43ba98cecb7"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "node-controller-token-dcpvr",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "node-controller-token-dcpvr",
+              "namespace": "kube-system",
+              "uid": "cb5d7081-efe2-46d9-b040-636d5d7bfedb",
+              "resourceVersion": "373",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "node-controller",
+                "kubernetes.io/service-account.uid": "59d81c4f-f3b2-4bc8-8d0e-0e17e7774fa0"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "persistent-volume-binder-token-cg8rr",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "persistent-volume-binder-token-cg8rr",
+              "namespace": "kube-system",
+              "uid": "9769e4b5-a6fd-4b95-a24f-fd2a567c127d",
+              "resourceVersion": "450",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "persistent-volume-binder",
+                "kubernetes.io/service-account.uid": "6edac9cf-968e-47c4-bf79-d4139690bc4e"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "pod-garbage-collector-token-ktrkk",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "pod-garbage-collector-token-ktrkk",
+              "namespace": "kube-system",
+              "uid": "00cb0e22-59cb-4fbd-b1c4-24213d387ea0",
+              "resourceVersion": "382",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "pod-garbage-collector",
+                "kubernetes.io/service-account.uid": "b503da9b-d092-4f38-96a9-dc52d9955ac7"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "pv-protection-controller-token-bb5cc",
+            "kubernetes.io/service-account-token",
+            3,
+            "79s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "pv-protection-controller-token-bb5cc",
+              "namespace": "kube-system",
+              "uid": "27cf5b9b-b19d-450e-9fc0-ba6443bdd52d",
+              "resourceVersion": "403",
+              "creationTimestamp": "2026-09-29T23:24:30Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "pv-protection-controller",
+                "kubernetes.io/service-account.uid": "0562c629-6b59-4450-97f5-3345f89f0724"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:30Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "pvc-protection-controller-token-sms92",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "pvc-protection-controller-token-sms92",
+              "namespace": "kube-system",
+              "uid": "b564e71a-0a7f-4908-9699-cb3491df52e9",
+              "resourceVersion": "371",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "pvc-protection-controller",
+                "kubernetes.io/service-account.uid": "7ee35c52-df17-462f-a8ff-f75e85a1122a"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "replicaset-controller-token-bxwrl",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "replicaset-controller-token-bxwrl",
+              "namespace": "kube-system",
+              "uid": "81f067ba-908c-4d8c-a29f-f8ea9cad2e76",
+              "resourceVersion": "380",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "replicaset-controller",
+                "kubernetes.io/service-account.uid": "26296faa-40d2-4ce6-bf35-51cbe4435f44"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "replication-controller-token-sr7bg",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "replication-controller-token-sr7bg",
+              "namespace": "kube-system",
+              "uid": "213c3ed5-0b3a-4e6e-a710-14e378144bb8",
+              "resourceVersion": "384",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "replication-controller",
+                "kubernetes.io/service-account.uid": "87aa6411-f024-4d03-820e-553aefa8e30b"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "resourcequota-controller-token-kjxrw",
+            "kubernetes.io/service-account-token",
+            3,
+            "79s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "resourcequota-controller-token-kjxrw",
+              "namespace": "kube-system",
+              "uid": "59947156-daac-43f4-8003-61861648c150",
+              "resourceVersion": "409",
+              "creationTimestamp": "2026-09-29T23:24:30Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "resourcequota-controller",
+                "kubernetes.io/service-account.uid": "1433d4ad-c834-41ea-99f1-403f2bec981c"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:30Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "root-ca-cert-publisher-token-nphp8",
+            "kubernetes.io/service-account-token",
+            3,
+            "78s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "root-ca-cert-publisher-token-nphp8",
+              "namespace": "kube-system",
+              "uid": "5235f732-8a99-4904-9fdb-0acedce2e36f",
+              "resourceVersion": "425",
+              "creationTimestamp": "2026-09-29T23:24:31Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "root-ca-cert-publisher",
+                "kubernetes.io/service-account.uid": "c329e223-9841-4492-bc0c-d2e50a78ca17"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:31Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "service-account-controller-token-qf54h",
+            "kubernetes.io/service-account-token",
+            3,
+            "79s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "service-account-controller-token-qf54h",
+              "namespace": "kube-system",
+              "uid": "4ec7a43c-ae78-4094-be84-07faa1497cad",
+              "resourceVersion": "412",
+              "creationTimestamp": "2026-09-29T23:24:30Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "service-account-controller",
+                "kubernetes.io/service-account.uid": "29950e31-6447-44dd-8020-4032bdacb1a0"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:30Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "service-controller-token-mmf9v",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "service-controller-token-mmf9v",
+              "namespace": "kube-system",
+              "uid": "3d10bdb2-10db-4701-bd83-62e09ea0eca9",
+              "resourceVersion": "436",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "service-controller",
+                "kubernetes.io/service-account.uid": "4dcc936c-8039-4e8b-8dec-0a67af9ba2c9"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "statefulset-controller-token-4f8fs",
+            "kubernetes.io/service-account-token",
+            3,
+            "80s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "statefulset-controller-token-4f8fs",
+              "namespace": "kube-system",
+              "uid": "e47fd46a-8862-4637-a532-c2748815239c",
+              "resourceVersion": "383",
+              "creationTimestamp": "2026-09-29T23:24:29Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "statefulset-controller",
+                "kubernetes.io/service-account.uid": "e0a20bdf-4f56-4e7c-a531-2ef3cf0bd9ec"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:29Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "token-cleaner-token-jtd6b",
+            "kubernetes.io/service-account-token",
+            3,
+            "78s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "token-cleaner-token-jtd6b",
+              "namespace": "kube-system",
+              "uid": "fb8b5551-07e6-4cb0-8bb8-cc21302997a4",
+              "resourceVersion": "422",
+              "creationTimestamp": "2026-09-29T23:24:31Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "token-cleaner",
+                "kubernetes.io/service-account.uid": "2c59b24e-a87a-4423-a109-f805d98d5d4f"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:31Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "ttl-after-finished-controller-token-k7k8w",
+            "kubernetes.io/service-account-token",
+            3,
+            "79s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "ttl-after-finished-controller-token-k7k8w",
+              "namespace": "kube-system",
+              "uid": "b674dffa-794b-489c-837d-9eb194f44214",
+              "resourceVersion": "406",
+              "creationTimestamp": "2026-09-29T23:24:30Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "ttl-after-finished-controller",
+                "kubernetes.io/service-account.uid": "a179f6fc-4f7c-4d5f-96d1-bbdeb227f93c"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:30Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cells": [
+            "ttl-controller-token-s8ccq",
+            "kubernetes.io/service-account-token",
+            3,
+            "68s"
+          ],
+          "object": {
+            "kind": "PartialObjectMetadata",
+            "apiVersion": "meta.k8s.io/v1",
+            "metadata": {
+              "name": "ttl-controller-token-s8ccq",
+              "namespace": "kube-system",
+              "uid": "33aa750b-bffe-4e14-ba5d-6c5e6f006a5f",
+              "resourceVersion": "447",
+              "creationTimestamp": "2026-09-29T23:24:41Z",
+              "annotations": {
+                "kubernetes.io/service-account.name": "ttl-controller",
+                "kubernetes.io/service-account.uid": "2bbbfa61-3382-405c-9dd1-4f77c3ad391c"
+              },
+              "managedFields": [
+                {
+                  "manager": "kube-controller-manager",
+                  "operation": "Update",
+                  "apiVersion": "v1",
+                  "time": "2026-09-29T23:24:41Z",
+                  "fieldsType": "FieldsV1",
+                  "fieldsV1": {
+                    "f:data": {
+                      ".": {},
+                      "f:ca.crt": {},
+                      "f:namespace": {},
+                      "f:token": {}
+                    },
+                    "f:metadata": {
+                      "f:annotations": {
+                        ".": {},
+                        "f:kubernetes.io/service-account.name": {},
+                        "f:kubernetes.io/service-account.uid": {}
+                      }
+                    },
+                    "f:type": {}
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "category": "impersonation",
+    "categories": [
+      "impersonation",
+      "secrets_access"
+    ],
+    "reason": {
+      "impersonation": "get secrets от имени system:serviceaccount:secure-ops:monitoring (имперсонация)",
+      "secrets_access": "get secrets/default-token-25rhr (ns=kube-system)"
+    },
+    "timestamp": "2026-09-29T23:25:49.974763Z",
+    "verb": "get",
+    "auditLevel": "RequestResponse",
+    "objectRef": {
+      "resource": "secrets",
+      "namespace": "kube-system",
+      "name": "default-token-25rhr",
+      "apiVersion": "v1"
+    },
+    "requestURI": "/api/v1/namespaces/kube-system/secrets/default-token-25rhr",
+    "who": {
+      "initiatedBy": "minikube-user",
+      "initiatorGroups": [
+        "system:masters",
+        "system:authenticated"
+      ],
+      "impersonatedUser": "system:serviceaccount:secure-ops:monitoring",
+      "impersonatedGroups": [
+        "system:serviceaccounts",
+        "system:serviceaccounts:secure-ops",
+        "system:authenticated"
+      ],
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.22.9 (linux/amd64) kubernetes/6df4433"
+    },
+    "response": {
+      "code": 403,
+      "reason": "Forbidden"
+    },
+    "auditID": "d9399a91-a40a-46e4-9dfd-6d0a10555819",
+    "responseObject": {
+      "kind": "Status",
+      "apiVersion": "v1",
+      "metadata": {},
+      "status": "Failure",
+      "message": "secrets \"default-token-25rhr\" is forbidden: User \"system:serviceaccount:secure-ops:monitoring\" cannot get resource \"secrets\" in API group \"\" in the namespace \"kube-system\"",
+      "reason": "Forbidden",
+      "details": {
+        "name": "default-token-25rhr",
+        "kind": "secrets"
+      },
+      "code": 403
+    }
+  },
+  {
+    "category": "privileged_pod",
+    "categories": [
+      "privileged_pod"
+    ],
+    "reason": {
+      "privileged_pod": "create pod с securityContext.privileged=true (pod=privileged-pod, ns=secure-ops)"
+    },
+    "timestamp": "2026-09-29T23:25:50.068680Z",
+    "verb": "create",
+    "auditLevel": "RequestResponse",
+    "objectRef": {
+      "resource": "pods",
+      "namespace": "secure-ops",
+      "name": "privileged-pod",
+      "apiVersion": "v1"
+    },
+    "requestURI": "/api/v1/namespaces/secure-ops/pods?fieldManager=kubectl-client-side-apply",
+    "who": {
+      "initiatedBy": "minikube-user",
+      "initiatorGroups": [
+        "system:masters",
+        "system:authenticated"
+      ],
+      "impersonatedUser": null,
+      "impersonatedGroups": null,
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.22.9 (linux/amd64) kubernetes/6df4433"
+    },
+    "response": {
+      "code": 201,
+      "reason": null
+    },
+    "auditID": "74622a35-0237-47f0-a779-657eddd42ab5",
+    "requestObject": {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "privileged-pod",
+        "namespace": "secure-ops",
+        "creationTimestamp": null,
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"name\":\"privileged-pod\",\"namespace\":\"secure-ops\"},\"spec\":{\"containers\":[{\"command\":[\"sleep\",\"3600\"],\"image\":\"alpine\",\"name\":\"pwn\",\"securityContext\":{\"privileged\":true}}],\"restartPolicy\":\"Never\"}}\n"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "pwn",
+            "image": "alpine",
+            "command": [
+              "sleep",
+              "3600"
+            ],
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "privileged": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "securityContext": {},
+        "schedulerName": "default-scheduler",
+        "enableServiceLinks": true
+      },
+      "status": {}
+    },
+    "responseObject": {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "privileged-pod",
+        "namespace": "secure-ops",
+        "uid": "26963df6-1e6f-407f-8ab0-86ec1eb33132",
+        "resourceVersion": "590",
+        "creationTimestamp": "2026-09-29T23:25:50Z",
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"name\":\"privileged-pod\",\"namespace\":\"secure-ops\"},\"spec\":{\"containers\":[{\"command\":[\"sleep\",\"3600\"],\"image\":\"alpine\",\"name\":\"pwn\",\"securityContext\":{\"privileged\":true}}],\"restartPolicy\":\"Never\"}}\n"
+        },
+        "managedFields": [
+          {
+            "manager": "kubectl-client-side-apply",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2026-09-29T23:25:50Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {
+              "f:metadata": {
+                "f:annotations": {
+                  ".": {},
+                  "f:kubectl.kubernetes.io/last-applied-configuration": {}
+                }
+              },
+              "f:spec": {
+                "f:containers": {
+                  "k:{\"name\":\"pwn\"}": {
+                    ".": {},
+                    "f:command": {},
+                    "f:image": {},
+                    "f:imagePullPolicy": {},
+                    "f:name": {},
+                    "f:resources": {},
+                    "f:securityContext": {
+                      ".": {},
+                      "f:privileged": {}
+                    },
+                    "f:terminationMessagePath": {},
+                    "f:terminationMessagePolicy": {}
+                  }
+                },
+                "f:dnsPolicy": {},
+                "f:enableServiceLinks": {},
+                "f:restartPolicy": {},
+                "f:schedulerName": {},
+                "f:securityContext": {},
+                "f:terminationGracePeriodSeconds": {}
+              }
+            }
+          }
+        ]
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "kube-api-access-bg9d4",
+            "projected": {
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "name": "kube-root-ca.crt",
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "path": "namespace",
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "defaultMode": 420
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "pwn",
+            "image": "alpine",
+            "command": [
+              "sleep",
+              "3600"
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "kube-api-access-bg9d4",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "privileged": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "securityContext": {},
+        "schedulerName": "default-scheduler",
+        "tolerations": [
+          {
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          },
+          {
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          }
+        ],
+        "priority": 0,
+        "enableServiceLinks": true,
+        "preemptionPolicy": "PreemptLowerPriority"
+      },
+      "status": {
+        "phase": "Pending",
+        "qosClass": "BestEffort"
+      }
+    }
+  },
+  {
+    "category": "pod_exec",
+    "categories": [
+      "pod_exec"
+    ],
+    "reason": {
+      "pod_exec": "kubectl exec в pods/coredns-78fcd69978-2fn95 (ns=kube-system), команда: ['cat', '/etc/resolv.conf']"
+    },
+    "timestamp": "2026-09-29T23:25:50.148278Z",
+    "verb": "create",
+    "auditLevel": "Metadata",
+    "objectRef": {
+      "resource": "pods",
+      "namespace": "kube-system",
+      "name": "coredns-78fcd69978-2fn95",
+      "apiVersion": "v1",
+      "subresource": "exec"
+    },
+    "requestURI": "/api/v1/namespaces/kube-system/pods/coredns-78fcd69978-2fn95/exec?command=cat&command=%2Fetc%2Fresolv.conf&container=coredns&stderr=true&stdout=true",
+    "who": {
+      "initiatedBy": "minikube-user",
+      "initiatorGroups": [
+        "system:masters",
+        "system:authenticated"
+      ],
+      "impersonatedUser": null,
+      "impersonatedGroups": null,
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.22.9 (linux/amd64) kubernetes/6df4433"
+    },
+    "response": {
+      "code": 101,
+      "reason": null
+    },
+    "auditID": "153a15c9-4a36-419d-b2ee-4fae494efd61"
+  },
+  {
+    "category": "rbac_escalation",
+    "categories": [
+      "rbac_escalation"
+    ],
+    "reason": {
+      "rbac_escalation": "create rolebindings/escalate-binding (ns=secure-ops) — тело запроса не записано (level=Metadata), roleRef нельзя подтвердить по логам; проверить: kubectl get rolebinding escalate-binding -n secure-ops -o yaml"
+    },
+    "timestamp": "2026-09-29T23:25:50.310631Z",
+    "verb": "create",
+    "auditLevel": "Metadata",
+    "objectRef": {
+      "resource": "rolebindings",
+      "namespace": "secure-ops",
+      "name": "escalate-binding",
+      "apiGroup": "rbac.authorization.k8s.io",
+      "apiVersion": "v1"
+    },
+    "requestURI": "/apis/rbac.authorization.k8s.io/v1/namespaces/secure-ops/rolebindings?fieldManager=kubectl-client-side-apply",
+    "who": {
+      "initiatedBy": "minikube-user",
+      "initiatorGroups": [
+        "system:masters",
+        "system:authenticated"
+      ],
+      "impersonatedUser": null,
+      "impersonatedGroups": null,
+      "sourceIPs": [
+        "192.168.49.1"
+      ],
+      "userAgent": "kubectl/v1.22.9 (linux/amd64) kubernetes/6df4433"
+    },
+    "response": {
+      "code": 201,
+      "reason": null
+    },
+    "auditID": "aa503424-2f15-4669-857a-62310ab4aa8e"
+  }
+]

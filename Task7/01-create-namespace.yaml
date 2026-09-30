@@ -1,0 +1,24 @@
+# Namespace used for the security audit.
+#
+# It carries the FULL set of Pod Security Admission labels so that the final
+# state is identical no matter which of the two files is applied first
+# (01-create-namespace.yaml / audit-policy.yaml):
+#
+#   - enforce: "restricted"  -> REJECT non-compliant pods (blocking layer)
+#   - audit:   "restricted"  -> LOG non-compliant pods (non-blocking audit)
+#   - warn:    "restricted"  -> return Warning headers for non-compliant pods
+#
+# "restricted" is the strictest built-in profile (the PSP replacement). Note
+# that `readOnlyRootFilesystem` is NOT part of the "restricted" profile; that
+# requirement is enforced separately by OPA Gatekeeper (see gatekeeper/).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: audit-zone
+  labels:
+    pod-security.kubernetes.io/enforce: "restricted"
+    pod-security.kubernetes.io/enforce-version: "latest"
+    pod-security.kubernetes.io/audit: "restricted"
+    pod-security.kubernetes.io/audit-version: "latest"
+    pod-security.kubernetes.io/warn: "restricted"
+    pod-security.kubernetes.io/warn-version: "latest"

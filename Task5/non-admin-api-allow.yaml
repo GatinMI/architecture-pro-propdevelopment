@@ -1,0 +1,86 @@
+# Задание 5. Управление трафиком внутри кластера Kubernetes.
+#
+# Две сетевые политики разбивают четыре сервиса (nginx) на две изолированные пары:
+#   1. front-end (UI)  <-> back-end-api (API)        — traffic в обе стороны разрешён
+#   2. admin-front-end (UI) <-> admin-back-end-api (API) — traffic в обе стороны разрешён
+#
+# Всё, что не разрешено явно, запрещается:
+#   - back-end-api недоступен из admin-front-end и из других подов;
+#   - admin-back-end-api недоступен из front-end и из других подов;
+#   - фронты не получают трафика от API и от чужих фронтендов.
+#
+# Примечание: политика без правила egress разрешает исходящий трафик
+# в любом направлении, поэтому для изоляции входящих направлений
+# достаточно правил ingress.
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: front-end-allow-back-end-api
+  namespace: task5
+spec:
+  podSelector:
+    matchLabels:
+      role: front-end
+  policyTypes:
+    - Ingress
+  ingress:
+    # трафик разрешён только от back-end-api
+    - from:
+        - podSelector:
+            matchLabels:
+              role: back-end-api
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: back-end-api-allow-front-end
+  namespace: task5
+spec:
+  podSelector:
+    matchLabels:
+      role: back-end-api
+  policyTypes:
+    - Ingress
+  ingress:
+    # трафик разрешён только от front-end
+    - from:
+        - podSelector:
+            matchLabels:
+              role: front-end
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: admin-front-end-allow-admin-back-end-api
+  namespace: task5
+spec:
+  podSelector:
+    matchLabels:
+      role: admin-front-end
+  policyTypes:
+    - Ingress
+  ingress:
+    # трафик разрешён только от admin-back-end-api
+    - from:
+        - podSelector:
+            matchLabels:
+              role: admin-back-end-api
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: admin-back-end-api-allow-admin-front-end
+  namespace: task5
+spec:
+  podSelector:
+    matchLabels:
+      role: admin-back-end-api
+  policyTypes:
+    - Ingress
+  ingress:
+    # трафик разрешён только от admin-front-end
+    - from:
+        - podSelector:
+            matchLabels:
+              role: admin-front-end

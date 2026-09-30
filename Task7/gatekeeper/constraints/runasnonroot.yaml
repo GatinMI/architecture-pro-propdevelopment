@@ -1,0 +1,20 @@
+# Constraint: RunAsNonRoot
+#
+# Applies the `RunAsNonRoot` ConstraintTemplate cluster-wide to every Pod.
+# `enforcementAction: deny` blocks admission. The template enforces two rules:
+#   - every container must run as non-root (runAsNonRoot: true);
+#   - every container must use a read-only root filesystem
+#     (readOnlyRootFilesystem: true).
+#
+# Policy requirements: "Только runAsNonRoot: true." and
+# "readOnlyRootFilesystem: true обязательно."
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: RunAsNonRoot
+metadata:
+  name: require-non-root
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  enforcementAction: deny

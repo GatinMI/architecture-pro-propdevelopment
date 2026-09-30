@@ -1,0 +1,29 @@
+# VIOLATION #2: hostPath volume mount.
+#
+# This pod mounts a hostPath volume (the host's /etc directory) into the
+# container. The "restricted" Pod Security profile forbids hostPath volumes,
+# so this pod MUST be REJECTED by admission in audit-zone.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-hostpath
+  namespace: audit-zone
+spec:
+  restartPolicy: Never
+  volumes:
+    - name: host-etc
+      hostPath:
+        path: /etc
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      volumeMounts:
+        - name: host-etc
+          mountPath: /etc-host
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
